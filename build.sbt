@@ -4,9 +4,14 @@ ThisBuild / scalaVersion := "3.6.3"
 
 val helidon = "4.1.6"
 
+Compile / mainClass := Some("io.helidon.examples.quickstart.se.Main")
+
 lazy val root = (project in file("."))
   .settings(
-    name := "helidon-example",
+    name := "helidon-quickstart-se",
+    artifactName := { (_: ScalaVersion, _: ModuleID, artifact: Artifact) =>
+      artifact.name + "." + artifact.extension
+    },
     libraryDependencies ++= Seq(
       "io.helidon.webserver"  % "helidon-webserver"        % helidon,
       "io.helidon.config"     % "helidon-config-yaml"      % helidon,
