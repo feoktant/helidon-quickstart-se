@@ -12,6 +12,8 @@ lazy val root = (project in file("."))
       "io.helidon.config"     % "helidon-config-yaml"      % helidon,
       "io.helidon.logging"    % "helidon-logging-jul"      % helidon,
       "io.helidon.http.media" % "helidon-http-media-jsonp" % helidon,
+      "io.helidon.webserver.observe" % "helidon-webserver-observe-metrics" % helidon,
+      "io.helidon.metrics"           % "helidon-metrics-system-meters"     % helidon % Runtime,
 
       "jakarta.json" % "jakarta.json-api" % "2.1.3",
 
