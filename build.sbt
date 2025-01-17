@@ -14,5 +14,10 @@ lazy val root = (project in file("."))
       "io.helidon.http.media" % "helidon-http-media-jsonp" % helidon,
 
       "jakarta.json" % "jakarta.json-api" % "2.1.3",
+
+      "org.junit.jupiter" % "junit-jupiter-api" % "5.10.3" % Test,
+      "org.hamcrest" % "hamcrest-all" % "1.3" % Test,
+      "io.helidon.webserver.testing.junit5" % "helidon-webserver-testing-junit5" % helidon % Test,
+      "io.helidon.webclient" % "helidon-webclient" % helidon % Test,
     ),
   )
