@@ -10,7 +10,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "io.helidon.webserver"  % "helidon-webserver"        % helidon,
       "io.helidon.config"     % "helidon-config-yaml"      % helidon,
-      "io.helidon.logging"    % "helidon-logging-jul"      % helidon,
+      "io.helidon.logging"    % "helidon-logging-jul"      % helidon % Runtime,
       "io.helidon.http.media" % "helidon-http-media-jsonp" % helidon,
       "io.helidon.webserver.observe" % "helidon-webserver-observe-metrics" % helidon,
       "io.helidon.metrics"           % "helidon-metrics-system-meters"     % helidon % Runtime,
