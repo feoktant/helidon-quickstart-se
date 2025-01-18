@@ -5,6 +5,11 @@ ThisBuild / scalaVersion := "3.6.3"
 val helidon = "4.1.6"
 
 Compile / mainClass := Some("io.helidon.examples.quickstart.se.Main")
+Compile / packageBin / packageOptions +=
+  Package.ManifestAttributes(
+    java.util.jar.Attributes.Name.CLASS_PATH ->
+      (Compile / dependencyClasspath).value.files.map(f => "libs/" + f.name).mkString(" "),
+  )
 
 lazy val root = (project in file("."))
   .settings(
