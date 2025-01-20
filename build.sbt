@@ -4,19 +4,36 @@ ThisBuild / scalaVersion := "3.6.3"
 
 val helidon = "4.1.6"
 
+lazy val libsDir = settingKey[File]("Libs directory")
+libsDir := target.value / "libs"
+
 Compile / mainClass := Some("io.helidon.examples.quickstart.se.Main")
+
 Compile / packageBin / packageOptions +=
   Package.ManifestAttributes(
     java.util.jar.Attributes.Name.CLASS_PATH ->
-      (Compile / dependencyClasspath).value.files.map(f => "libs/" + f.name).mkString(" "),
+      (Runtime / managedClasspath).value.files
+        .map(libsDir.value.name +  "/" + _.name)
+        .mkString(" ")
   )
+
+lazy val customArtifactName = settingKey[String]("Custom artifact name")
+customArtifactName := s"${name.value}.jar"
+
+lazy val copyDependencies = taskKey[Unit]("Copies all JAR dependencies to target/libs")
+copyDependencies := {
+  IO.createDirectory(libsDir.value)
+  (Compile / dependencyClasspath).value.foreach { jar =>
+    val dest = libsDir.value / jar.data.getName
+    IO.copyFile(jar.data, dest)
+  }
+}
 
 lazy val root = (project in file("."))
   .settings(
     name := "helidon-quickstart-se",
-    artifactName := { (_: ScalaVersion, _: ModuleID, artifact: Artifact) =>
-      artifact.name + "." + artifact.extension
-    },
+    Compile / packageBin / artifactPath := target.value / customArtifactName.value,
+    Compile / packageBin := (Compile / packageBin).dependsOn(copyDependencies).value,
     libraryDependencies ++= Seq(
       "io.helidon.webserver"  % "helidon-webserver"        % helidon,
       "io.helidon.config"     % "helidon-config-yaml"      % helidon,

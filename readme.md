@@ -8,8 +8,5 @@ Sample Helidon SE project that includes multiple REST operations,
 With JDK21
 ```bash
 sbt package
-java -jar target/scala-3.6.3/helidon-quickstart-se.jar
+java -jar target/helidon-quickstart-se.jar
 ```
-
-TODO: code up is not working for now. Need to copy `lib` folder and `Class-Path`
-in `MANIFEST.MF`.
